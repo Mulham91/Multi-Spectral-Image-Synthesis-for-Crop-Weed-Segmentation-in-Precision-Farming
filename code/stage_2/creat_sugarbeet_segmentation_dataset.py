@@ -17,7 +17,7 @@ def m_args():
     parser =  ArgumentParser(description=desc)
     parser.add_argument('--phase', type=str, default='train', choices=('train', 'guide', 'random'), help='phase name')
     parser.add_argument('--dataset_name', type=str, default='SugarBeets_256', help='Dataset name')
-    parser.add_argument('--dataset_path', type=str, default='/media/mulham/4AA6CD64A6CD515D/dataset/plants_dataset/SugarBeets_256/', help='Dataset path')
+    parser.add_argument('--dataset_path', type=str, default='/', help='Dataset path')
 
     parser.add_argument('--epoch', type=int, default=200, help='The number of epochs to run')
     parser.add_argument('--iteration', type=int, default=1, help='The number of training iterations')
@@ -416,7 +416,7 @@ if __name__ == '__main__':
     subfolers = ['original/', 'synthetic/']
     subsubfolers = ['rgb/', 'nir/', 'mask/']
 
-    output_path ='/media/mulham/4AA6CD64A6CD515D/ISA_paper/output/sugarbeet_500/generated4/' # #'../../dataset/Segmentation/'
+    output_path ='/' # #'../../dataset/Segmentation/'
     # output_path = '/Volumes/MAXTOR/Segmentation/'
     # Create folders if do not exist
     if False:
@@ -433,8 +433,8 @@ if __name__ == '__main__':
                     os.makedirs(output_path + f + s + w)
 
         # Generate data
-#        generate_dataset(path='/media/mulham/4AA6CD64A6CD515D/dataset/test_dataset', output_path=output_path, annotation_path='/media/mulham/4AA6CD64A6CD515D/dataset/CKA_160517/annotations/dlp/', background=False, blur=True)
-        generate_dataset(path='/media/mulham/4AA6CD64A6CD515D/dataset/bonn_dataset_used_to_generat_crop/', output_path=output_path, annotation_path='/home/mulham/work_space/dataset_generation/sugar_beet_annotation-master/', background=False, blur=True)
+#       
+        generate_dataset(path='/', output_path=output_path, annotation_path='/', background=False, blur=True)
 
         # Split original train and test files
         # for s in subfolers:

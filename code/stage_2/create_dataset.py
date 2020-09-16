@@ -17,7 +17,7 @@ def m_args():
     parser =  ArgumentParser(description=desc)
     parser.add_argument('--phase', type=str, default='train', choices=('train', 'guide', 'random'), help='phase name')
     parser.add_argument('--dataset_name', type=str, default='SugarBeets_256', help='Dataset name')
-    parser.add_argument('--dataset_path', type=str, default='/media/mulham/4AA6CD64A6CD515D/dataset/plants_dataset/SugarBeets_256/', help='Dataset path')
+    parser.add_argument('--dataset_path', type=str, default='/', help='Dataset path')
 
     parser.add_argument('--epoch', type=int, default=200, help='The number of epochs to run')
     parser.add_argument('--iteration', type=int, default=1, help='The number of training iterations')
@@ -175,7 +175,7 @@ def generate_dataset(path, output_path, annotation_path, background, blur, type=
     complete_radius_list = []
     cutted_images = 0
 
-    # Load args from SPADE/media/mulham/4AA6CD64A6CD515D/CKA_160517/annotations/dlp/yamls/
+
     args = m_args()
     if args is None:
       exit()
@@ -189,31 +189,15 @@ def generate_dataset(path, output_path, annotation_path, background, blur, type=
 
         # Load model
         gan.load_model()
-        print('*******************annotationsPath**********************')
-        print(annotationsPath)
-        print(nirImagesPath)
-        print(rgbImagesPath)
-        print(maskNirPath)
-        print(maskRgbPath)
-        print('Number of folders:', len(folders))
-        print('******************* Path**********************')
-        print(path)
+     
         for i, folder in enumerate(folders):
             
-            print('\nFolder %d/%d: %s' %(i+1,len(folders),folder))
-            print('*******************folder**********************')
-            print(folder)	
-            print('*******************rgbImagesPath**********************')
-            print(rgbImagesPath)		
-
+            
 
             # Get files
             files = os.listdir(folder + rgbImagesPath)
             print('\nFolder %d/%d: %s' %(i+1,len(folders),folder))
-            print('*******************folder**********************')
-            print(folder)	
-            print('*******************rgbImagesPath**********************')
-            print(rgbImagesPath)		
+           		
  	
             for j, file in enumerate(files):
 
@@ -452,7 +436,7 @@ if __name__ == '__main__':
     subfolers = ['original/', 'synthetic/']
     subsubfolers = ['rgb/', 'nir/', 'mask/']
 
-    output_path ='/media/mulham/4AA6CD64A6CD515D/synthatic_data_generation/ISA_paper/output/Ias_abelation_study/generated_images/for_paper_5000/test1' # #'../../dataset/Segmentation/'
+    output_path ='' # #'../../dataset/Segmentation/'
     # output_path = '/Volumes/MAXTOR/Segmentation/'
     # Create folders if do not exist
     if False:
@@ -469,8 +453,8 @@ if __name__ == '__main__':
                     os.makedirs(output_path + f + s + w)
 
         # Generate data
-#        generate_dataset(path='/media/mulham/4AA6CD64A6CD515D/dataset/test_dataset', output_path=output_path, annotation_path='/media/mulham/4AA6CD64A6CD515D/dataset/CKA_160517/annotations/dlp/', background=False, blur=True)
-        generate_dataset(path='/media/mulham/4AA6CD64A6CD515D/dataset/bonn_dataset_used_to_generat_crop/dataset/', output_path=output_path, annotation_path='/media/mulham/4AA6CD64A6CD515D/synthatic_data_generation/ISA_paper/sugar_beet_annotation-master/', background=False, blur=True)
+#   
+        generate_dataset(path='/', output_path=output_path, annotation_path='/', background=False, blur=True)
 
         # Split original train and test files
         # for s in subfolers:

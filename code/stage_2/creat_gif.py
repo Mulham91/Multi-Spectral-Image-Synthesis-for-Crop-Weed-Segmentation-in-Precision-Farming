@@ -13,7 +13,7 @@ import tqdm
 model_name = 'SPADE_load_test'
 os.environ['KMP_DUPLICATE_LIB_OK']='True'
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
-dataset_path='/media/mulham/4AA6CD64A6CD515D/dataset/plants_dataset/SugarBeets_256/'
+dataset_path='/'
 img_ch=4
 img_height=256
 img_width=256
@@ -22,7 +22,7 @@ augment_flag=False
 dataset_path
 img_class = Image_data(img_height, img_width, img_ch, ssegmap_ch, dataset_path, augment_flag)
 img_class.preprocess()
-gif_dir='/home/mulham/work_space/dataset_generation/Synthetic-Plants/code/stage_2/resources/gif/SPADE_load_test_SugarBeets_256_hinge_2multi_4dis_1_1_10_10_0.05_sn_TTUR_more'
+gif_dir=''
 n_scale=2
 n_dis=4
 TTUR=True

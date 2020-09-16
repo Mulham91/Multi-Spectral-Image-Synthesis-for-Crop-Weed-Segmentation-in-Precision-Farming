@@ -26,8 +26,8 @@ def m_args():
     parser =  ArgumentParser(description=desc)
     parser.add_argument('--phase', type=str, default='train', choices=('train', 'guide', 'random'), help='phase name')
     parser.add_argument('--dataset_name', type=str, default='SugarBeets_256', help='Dataset name')
-    parser.add_argument('--dataset_path', type=str, default='/home/mulham/fawakherji-diag.uniroma1.it/', help='Dataset path')
-#    parser.add_argument('--dataset_path', type=str, default='/media/mulham/4AA6CD64A6CD515D/dataset/plants_dataset/SugarBeets_256/', help='Dataset path')
+    parser.add_argument('--dataset_path', type=str, default='/', help='Dataset path')
+
 
     parser.add_argument('--epoch', type=int, default=300, help='The number of epochs to run')
     parser.add_argument('--iteration', type=int, default=1, help='The number of training iterations')
@@ -94,9 +94,9 @@ def m_args():
 kernel = np.ones((5,5), np.uint8)
 color = (255, 255, 255)
 dim=128
-#finlenum=['CKA_160426','CKA_160427','CKA_160428','CKA_160429','CKA_160502','CKA_160503','CKA_160504','CKA_160505','CKA_160506', 'CKA_160509','CKA_160510','CKA_160512','CKA_160513','CKA_160517','CKA_160518','CKA_160523','CKA_160527']
+
 finlenum=[ 'CKA_160523'] 
-path_to_outPutFile="/home/mulham/Downloads/sunflower_patches.txt" 
+path_to_outPutFile="" 
 def check_countor(contour_name):
 #    print(contour_name)
     with open(path_to_outPutFile) as f:
@@ -125,9 +125,9 @@ if args is None:
 
     # open session
 with tf.Session(config=tf.ConfigProto(allow_soft_placement=True)) as sess:
-    print("creat spade ££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££")
+
     gan = spade(sess, args)
-    print("build grap ££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££")
+
 
     # build graph
     gan.build_model()
@@ -135,27 +135,15 @@ with tf.Session(config=tf.ConfigProto(allow_soft_placement=True)) as sess:
     gan.load_model()
     for num in finlenum:
         print ("in the loop")
-        nir_path="/home/mulham/Downloads/Train_sunflower_real/train/nir/"
-        rgb_path="/home/mulham/Downloads/Train_sunflower_real/train/img/"
-        output_path="/home/mulham/Downloads/Train_sunflower_real/synthetic_output/"
-        color_mask_path="/home/mulham/Downloads/Train_sunflower_real/train/lbl/"
-        mask_path="/home/mulham/Downloads/Train_sunflower_real/train/crop_mask/"
+        nir_path="/"
+        rgb_path="/"
+        output_path="/"
+        color_mask_path="/"
+        mask_path="/"
     
         
         
-        # nir_path="/home/mulham/work_space/dataset_generation/bonn_dataset_used_to_generat_crop/CKA_160523/images/for_gan/nir/"
-        # rgb_path="/home/mulham/work_space/dataset_generation/bonn_dataset_used_to_generat_crop/CKA_160523/images/for_gan/rgb_gan/"
-        # output_path="/home/mulham/work_space/dataset_generation/test_weed_generation/output/"
-        # color_mask_path="/home/mulham/work_space/dataset_generation/bonn_dataset_used_to_generat_crop/CKA_160523/images/for_gan/color_mask/"
-        # mask_path="/home/mulham/work_space/dataset_generation/bonn_dataset_used_to_generat_crop/CKA_160523/images/for_gan/weed_mask/"
-    
-        # nir_path="/media/mulham/TOSHIBA/dataset/ijrr_sugarbeets_2016_annotations/"+num+"/images/new_nir/"
-        # rgb_path="/home/mulham/work_space/dataset_generation/bonn_dataset_used_to_generat_crop/"+num+"/images/rgb/"
-        # output_gan_rgb_path="/home/mulham/work_space/dataset_generation/bonn_dataset_used_to_generat_crop/CKA_160523/images/rgb_gan/"
-        # output_rgb_real_path="/home/mulham/work_space/dataset_generation/bonn_dataset_used_to_generat_crop/CKA_160523/images/rgb_not_gan/"
-        # color_mask_path=""
-        # mask_path="/media/mulham/TOSHIBA/synthatic_data_generation/splited/"+num+"/weed_mask/"
-    
+      
         rgb_name_list = glob( rgb_path + "*.jpg"  ) + glob( rgb_path + "*.png"  ) +  glob( rgb_path + "*.jpeg"  )
         rgb_name_list.sort()
         nir_name_list = glob( nir_path + "*.jpg"  ) + glob( nir_path + "*.png"  ) +  glob( nir_path + "*.jpeg"  )
@@ -194,7 +182,7 @@ with tf.Session(config=tf.ConfigProto(allow_soft_placement=True)) as sess:
             contours_class1,dilated_img=get_contours(mask,mask_name)
             
             
-            print("******************dilated_img**********************")
+
 
             print(dilated_img.shape)
             maskRed = maskRgb[:, :, 2]  # Get only red channel
@@ -291,7 +279,7 @@ with tf.Session(config=tf.ConfigProto(allow_soft_placement=True)) as sess:
 
 
     #                cv2.rectangle(rgb, (int(boundRect[i][0]), int(boundRect[i][1])), (int(boundRect[i][0]+boundRect[i][2]), int(boundRect[i][1]+boundRect[i][3])), color, 2)
-                print("*******************")
+
     
             elif (len(not_gan_contor)!=0):
                 pose_size_not_gan=[None]*len(not_gan_contor)
