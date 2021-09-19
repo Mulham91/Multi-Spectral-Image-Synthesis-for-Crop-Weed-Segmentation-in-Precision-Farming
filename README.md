@@ -49,3 +49,27 @@ python create_dataset.py --dataset-path  --annotation_path --output_path --backg
 cd segmentation
 python segmentation.py --dataset-path  --dataset_type
 ```
+* Paper 
+
+If you use this code in your project, please cite the associated paper:
+
+M. Fawakherji, C. Potena, A. Pretto, D.D. Bloisi, and D. Nardi
+Multi-Spectral Image Synthesis for Crop/Weed Segmentation in Precision Farming
+In: Robotics and Autonomous Systems, Volume 146, December 2021
+Paper: https://www.sciencedirect.com/science/article/pii/S0921889021001469
+Pre-print on Arxiv: https://arxiv.org/abs/2009.05750
+
+
+BibTeX:
+@article{fppbnRAS2021,
+title = {Multi-Spectral Image Synthesis for Crop/Weed Segmentation in Precision Farming},
+author = {Mulham Fawakherji and Ciro Potena and Alberto Pretto and Domenico D. Bloisi and Daniele Nardi},
+journal = {Robotics and Autonomous Systems},
+volume = {146},
+pages = {103861},
+year = {2021},
+issn = {0921-8890},
+doi = {https://doi.org/10.1016/j.robot.2021.103861}}
+
+
+
