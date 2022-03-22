@@ -169,16 +169,8 @@ with tf.Session(config=tf.ConfigProto(allow_soft_placement=True)) as sess:
             orininal_h = rgb.shape[0]
             orininal_w = rgb.shape[1]
             outName  = rgb_image.replace( rgb_path , output_path )
-    #        outName_not_gan_rgb  = rgb_image.replace( rgb_path , output_rgb_real_path )
-
             rgb_copy =rgb.copy()
-            mask_name=mask_image.split('/')[-1].split(".")[0]
-            # imgray= cv2.cvtColor(mask,cv2.COLOR_BGR2GRAY)   
-            # img_dilation = cv2.dilate(imgray, kernel, iterations=1)       
-            # ret,thresh_class1 = cv2.threshold(img_dilation,0.5,255,0)
-            # blur_class1 = cv2.blur(thresh_class1,(9,9))
-            # contours_class1, hierarchy = cv2.findContours(blur_class1,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_NONE)
-    
+            mask_name=mask_image.split('/')[-1].split(".")[0]    
             contours_class1,dilated_img=get_contours(mask,mask_name)
             
             
@@ -260,25 +252,14 @@ with tf.Session(config=tf.ConfigProto(allow_soft_placement=True)) as sess:
                         
                         copy_cropped_rgb[np.where((c_m_d_3c==[255,255,255]).all(axis=2))] = synthetic_rgb_resized[np.where((c_m_d_3c==[255,255,255]).all(axis=2))]
                         copy_cropped_nir[np.where((c_m_d_3c==[255,255,255]).all(axis=2))] = synthetic_nir_resized[np.where((c_m_d_3c==[255,255,255]).all(axis=2))]
-                        
-                        
-                        # outName1=output_path+"copy_cropped_rgb"+str(i)+'_'+str(x)+".png"
-                        # outName2=output_path+"cropped_nir"+str(i)+'_'+str(x)+".png"
-                        # outName3=output_path+"cropped_mask"+str(i)+'_'+str(x)+".png"
-                        # outName4=output_path+"cropped_rgb"+str(i)+'_'+str(x)+".png"
+
                         new_rgb[boundRect[i][1]:boundRect[i][1]+boundRect[i][3]+10, boundRect[i][0]:boundRect[i][0]+boundRect[i][2]+10]=copy_cropped_rgb[:,:]
                         new_nir[boundRect[i][1]:boundRect[i][1]+boundRect[i][3]+10, boundRect[i][0]:boundRect[i][0]+boundRect[i][2]+10]=copy_cropped_nir[:,:]
-    
-                        # cv2.imwrite(outName1, copy_cropped_rgb)
-                        # cv2.imwrite(outName2, cropped_nir)
-                        # cv2.imwrite(outName3, cropped_mask)
-                        # cv2.imwrite(outName4, cropped_rgb)
+
                     cv2.imwrite(outName_new_rgb, new_rgb)
                     cv2.imwrite(outName_new_nir, new_nir) 
                     cv2.imwrite(outName_new_mask, new_mask)    
 
-
-    #                cv2.rectangle(rgb, (int(boundRect[i][0]), int(boundRect[i][1])), (int(boundRect[i][0]+boundRect[i][2]), int(boundRect[i][1]+boundRect[i][3])), color, 2)
 
     
             elif (len(not_gan_contor)!=0):

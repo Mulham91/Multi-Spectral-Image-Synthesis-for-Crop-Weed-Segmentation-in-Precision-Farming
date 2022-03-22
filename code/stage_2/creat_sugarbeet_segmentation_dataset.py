@@ -79,18 +79,7 @@ def m_args():
                         help='Directory name to save the generated images')
 
     return  parser.parse_args() 
-#def parseArgs():
-#    parser = ArgumentParser()
- #   parser.add_argument("--dataset_path", type=str, default='../../../plants_dataset/Bonn 2016/', help="Dataset path")
- #   parser.add_argument("--annotation_path", type=str, default='../../../sugar_beet_annotation/', help="Annotation path")
- #  parser.add_argument("--output_path", type=str, default='../../../plants_dataset/Segmentation/', help="Output path")
-  #  parser.add_argument("--background", type=str2bool, default=False, help="Keep (true) or remove (false) background")
-   # parser.add_argument("--blur", type=str2bool, default=True, help="Remove background with blur")
 
-  #  return parser.parse_args()
-
-# Flip image
-# Flip image
 def flip_image(img, mode = 1):
     # Horizontal = 1
     # Vertical = 0

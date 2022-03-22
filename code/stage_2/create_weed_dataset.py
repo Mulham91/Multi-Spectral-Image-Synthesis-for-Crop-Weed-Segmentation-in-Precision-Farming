@@ -79,15 +79,6 @@ def m_args():
                         help='Directory name to save the generated images')
 
     return  parser.parse_args() 
-#def parseArgs():
-#    parser = ArgumentParser()
- #   parser.add_argument("--dataset_path", type=str, default='../../../plants_dataset/Bonn 2016/', help="Dataset path")
- #   parser.add_argument("--annotation_path", type=str, default='../../../sugar_beet_annotation/', help="Annotation path")
- #  parser.add_argument("--output_path", type=str, default='../../../plants_dataset/Segmentation/', help="Output path")
-  #  parser.add_argument("--background", type=str2bool, default=False, help="Keep (true) or remove (false) background")
-   # parser.add_argument("--blur", type=str2bool, default=True, help="Remove background with blur")
-
-  #  return parser.parse_args()
 
 # Flip image
 def flip_image(img, mode = 1):
@@ -145,11 +136,7 @@ def calculateStem(contours, stem_x, stem_y):
             m_x = [min(m_x[0], point[0]), max(m_x[1], point[0])]
             m_y = [min(m_y[0], point[1]), max(m_y[1], point[1])]
 
-    # if stem_x < 0:
-    #     stem_x = int(m_x[0] + (m_x[1] - m_x[0])/2)
-    #
-    # if stem_y < 0:
-    #     stem_y = int(m_y[0] + (m_y[1] - m_y[0]) / 2)
+
 
     return stem_x, stem_y, m_x, m_y
 
@@ -160,11 +147,6 @@ def generate_dataset(path, output_path, annotation_path, background, blur, type=
     rgbImagesPath = 'images/rgb/'
     maskNirPath = os.path.join(annotation_path, 'masks/iMap/')
     maskRgbPath = os.path.join(annotation_path, 'masks/color/')
-    print(annotationsPath)
-    print(nirImagesPath)
-    print(rgbImagesPath)
-    print(maskNirPath)
-    print(maskRgbPath)
     imageNumber = 0
 
     dim = 256
@@ -189,7 +171,7 @@ def generate_dataset(path, output_path, annotation_path, background, blur, type=
 
         # Load model
         gan.load_model()
-        print('*******************annotationsPath**********************')
+
         print(annotationsPath)
         print(nirImagesPath)
         print(rgbImagesPath)
@@ -225,23 +207,6 @@ def generate_dataset(path, output_path, annotation_path, background, blur, type=
                     maskGreen = maskRgb[:, :, 1]  # Get only green channel
 
                     shape = rgbimg.shape
-
-                    # Get content from yaml file
- #                   content = yaml.safe_load(stream)
-
-                    # For each
-#                    try:
-#                       field = content["annotation"]
- #                   except:
-#                        print('\t\tError: Empty Yaml')
- #                       continue
-
-                    # Undistort images
-                  #  flag, nirimg, maskNir = align_images(rgbimg, nirimg, maskNir)
-
-                  #  if flag:
-                  #      continue
-
                     # Blank mask
                     maskCrop = np.zeros(shape=(rgbimg.shape[0], rgbimg.shape[1]), dtype="uint8")
 
@@ -354,10 +319,6 @@ def generate_dataset(path, output_path, annotation_path, background, blur, type=
                                 # # Generate image
                                 synthetic_rgb, synthetic_nir = gan.generate_sample(cropMaskResized)
                                 synthetic_rgb = cv2.cvtColor(synthetic_rgb, cv2.COLOR_BGR2RGB)
-                                # Used for test only
-                                # synthetic_nir = cropMaskResized
-                                # synthetic_rgb = np.expand_dims(synthetic_nir, axis=2)
-                                # synthetic_rgb = np.repeat(synthetic_rgb, 3, axis=2)
 
                                 synthetic_rgb = cv2.resize(synthetic_rgb, (radius*2, radius*2), interpolation=cv2.INTER_AREA)
                                 synthetic_rgb = synthetic_rgb[radius - (stem_y - bot): radius + (top - stem_y),
@@ -388,11 +349,6 @@ def generate_dataset(path, output_path, annotation_path, background, blur, type=
                                 else:
                                     rgbimgCopy[bot:top, left:right, :] = synthetic_rgb
                                     nirimgCopy[bot:top, left:right] = synthetic_nir
-
-                                # cv2.imshow('BEFORE', rgbimgCopy)
-                                # cv2.waitKey(0)
-                                # cv2.destroyAllWindows()
-
                             # Augment generated image
                             rgbimg_ = augment_image(rgbimgCopy, shape)
                             nirimg_ = augment_image(nirimgCopy, shape)
@@ -430,8 +386,7 @@ if __name__ == '__main__':
     subsubfolers = ['rgb/', 'nir/', 'mask/']
 
     output_path ='/' # #'../../dataset/Segmentation/'
-    # output_path = '/Volumes/MAXTOR/Segmentation/'
-    # Create folders if do not exist
+
     if False:
         print('\nFolder', output_path, 'already exist, delete it before continue!\n')
     else:
@@ -448,8 +403,6 @@ if __name__ == '__main__':
         # Generate data
         generate_dataset(path='', output_path=output_path, annotation_path='/', background=False, blur=True)
 
-        # Split original train and test files
-        # for s in subfolers:
         s = 'original/'
         files = os.listdir(output_path + folders[0] + s + subsubfolers[0])
         cut_files = random.sample(files, int(len(files)*0.2))
